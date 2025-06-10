@@ -1,0 +1,48 @@
+import argparse
+
+board_height = 0
+board_width = 0
+mines = 0
+
+
+def _argsHandler():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-m", "--mode",type=str,  default="Easy", metavar="", help="Chose mode: Easy, Intermediate, Expert or Custom")
+    args = parser.parse_args()
+    setBoard(args.mode)
+    run(args)
+
+def setBoard(mode):
+    print("You chose", mode, "!")
+    global board_height 
+    global board_width
+    global mines
+    match mode:
+        case "Easy":
+            board_height = 9
+            board_width = 9
+            mines = 10
+        case "Intermediate":
+            board_height = 16
+            board_width = 16
+            mines = 40
+        case "Expert":
+            board_height = 16
+            board_width = 30
+            mines = 99
+        case "Custom":
+            board_height = input("Choose height: ")
+            board_width = input("Choose width: ")
+            mines = input("Choose number of mines: ")
+        case _:
+            print("Something went wrong! Exiting")
+            exit()
+    
+
+def run(args):
+    print(args.mode)
+    print(board_height, board_width)
+
+if __name__ == "__main__":
+    _argsHandler()
+    
